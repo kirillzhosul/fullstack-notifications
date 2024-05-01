@@ -4,17 +4,21 @@ import { NotificationStats } from "@/features/notification/types";
 
 export const notificationApi = createApi({
   reducerPath: "notificationApi",
-  // No tag types are there is no mutation invalidation
   baseQuery: baseQueryWithReauth,
+  tagTypes: ["notifications"],
   endpoints: (build) => ({
     getStats: build.query<NotificationStats, undefined>({
-      query: () => "notifications/stats?format=json",
+      query: () => ({
+        url: "notifications/stats?format=json",
+        providesTags: ["notifications"],
+      }),
     }),
     createNotification: build.mutation({
       query: (body: any) => ({
-        url: "notifications",
+        url: "notifications/",
         method: "POST",
         body,
+        providesTags: ["notifications"],
       }),
     }),
   }),

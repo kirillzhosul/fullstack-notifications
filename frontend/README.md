@@ -1,20 +1,41 @@
 # Frontend
 
-Реализация Frontend на Next.js
+Frontend implementation in Next.js
 
-### Запуск
+### Tech stack
 
-#### Docker
+- `Next.js` (As wrapper around React)
+- `shadcn-ui` (UI components)
+- `tailwind` (CSS library for layouts)
+- `react-hook-form` (Forms + validations)
+- `@reduxjs/toolkit` (API queries / mutations)
+- `react-use-websocket` (Websockets from backend)
+- `react-redux` (Mostly for RTK)
 
-```
-docker-compose up
-```
+### Test server
 
-#### Yarn
-
-```
+```shell
+npm i yarn -g
 yarn && yarn dev
 ```
 
-Стэк:
-`shadcn-ui` + `tailwind` + `Next.js` + `react-hook-form`
+### Deploy
+
+```shell
+
+# Environment setup
+cp .env.example .env
+
+# With docker
+docker-compose up --build -d
+
+# With native
+npm i yarn -g
+yarn
+yarn build
+yarn start
+```
+
+### Configuration
+
+Please look inside `.env.example` for more information

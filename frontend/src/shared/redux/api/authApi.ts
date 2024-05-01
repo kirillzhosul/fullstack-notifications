@@ -13,6 +13,11 @@ export const authApi = createApi({
         body: { ...credentials },
       }),
     }),
+    getUser: build.query({
+      query: () => ({
+        url: "auth/users/me",
+      }),
+    }),
     signin: build.mutation({
       query: (credentials) => ({
         url: "auth/jwt/create/",
@@ -23,4 +28,5 @@ export const authApi = createApi({
   }),
 });
 
-export const { useSigninMutation, useSignupMutation } = authApi;
+export const { useSigninMutation, useSignupMutation, useGetUserQuery } =
+  authApi;

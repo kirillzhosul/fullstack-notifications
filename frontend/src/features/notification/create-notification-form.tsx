@@ -35,7 +35,7 @@ export function CreateNotificationForm({
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          defaultValue="warning"
+          defaultValue="warn"
           name="type"
           render={({ field }) => {
             return (
@@ -52,7 +52,7 @@ export function CreateNotificationForm({
                   </FormControl>
                   <SelectContent>
                     <SelectItem value="info">Информационное</SelectItem>
-                    <SelectItem value="warning">Предупреждение</SelectItem>
+                    <SelectItem value="warn">Предупреждение</SelectItem>
                     <SelectItem value="error">Ошибка</SelectItem>
                   </SelectContent>
                 </Select>

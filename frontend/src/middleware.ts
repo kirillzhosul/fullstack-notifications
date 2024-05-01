@@ -1,30 +1,29 @@
-"use client";
-
 import { NextRequest, NextResponse } from "next/server";
 
-import { cookies } from "next/headers";
-import { AUTH_COOKIE } from "@/shared/constants/cookies";
-import { decryptToken } from "@/shared/lib/auth";
-import { ROUTES } from "@/shared/constants/routes";
-
-const PROTECTED = ["/dashboard"];
-const PUBLIC = ["/auth/signin", "/auth/signup"];
+import {
+  ROUTES,
+  ROUTES_GUEST_ONLY,
+  ROUTES_PROTECTED,
+} from "@/shared/lib/routes";
+import { requestHasValidToken } from "./shared/lib";
 
 export default async function middleware(req: NextRequest) {
+  /**
+   *  Protection middleware
+   *  Handles cases where user is not authenticated or already authenticated
+   */
   const path = req.nextUrl.pathname;
-  const isProtected = PROTECTED.includes(path);
-  const isPublic = PUBLIC.includes(path);
-  const cookie = cookies().get(AUTH_COOKIE)?.value;
-  const session = decryptToken(cookie);
+  const isProtected = ROUTES_PROTECTED.includes(path);
+  const isPublic = ROUTES_GUEST_ONLY.includes(path);
+  const isAuthenticated = requestHasValidToken();
 
-  if (isProtected && session === undefined) {
+  if (isProtected && !isAuthenticated) {
     return NextResponse.redirect(new URL(ROUTES.SIGNIN, req.nextUrl));
   }
 
-  // 6. Redirect to /dashboard if the user is authenticated
   if (
     isPublic &&
-    session &&
+    isAuthenticated &&
     !req.nextUrl.pathname.startsWith(ROUTES.DASHBOARD)
   ) {
     return NextResponse.redirect(new URL(ROUTES.DASHBOARD, req.nextUrl));

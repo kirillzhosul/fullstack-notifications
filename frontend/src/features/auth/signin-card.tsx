@@ -1,6 +1,6 @@
 "use client";
 
-import { ROUTES } from "@/shared/constants/routes";
+import { ROUTES } from "@/shared/lib/routes";
 import {
   Card,
   CardContent,

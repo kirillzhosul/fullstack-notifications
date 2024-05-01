@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/shared/ui/utils";
-import { Provider } from "react-redux";
-import { store } from "@/shared/redux/store";
-import { Providers } from "@/shared/redux/provider";
+import { Providers } from "@/shared/redux/providers";
 
 const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
+import { Toaster } from "@/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Уведомления",
@@ -26,7 +25,10 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );

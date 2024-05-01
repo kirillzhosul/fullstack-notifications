@@ -13,14 +13,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Security
-
 APPEND_SLASH = True
 DEBUG = os.getenv("DEBUG", True)
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 SECRET_KEY = os.getenv(
     "SECRET_KEY",
     "django-insecure-=nvpef-izy-52aa6aqs#vwt5h&u@3n86y24$c_ajq%dmrri+03",
@@ -40,7 +36,7 @@ REST_FRAMEWORK: dict[str, list[str]] = {
 }
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT",),
-    "AUTH_COOKIE": "access_token",
+    "AUTH_COOKIE": os.getenv("AUTH_COOKIE", "access_token"),
     "AUTH_COOKIE_DOMAIN": None,
     "AUTH_COOKIE_SECURE": DEBUG,
     "AUTH_COOKIE_HTTP_ONLY": True,
@@ -52,19 +48,26 @@ if DEBUG:
         "rest_framework.renderers.BrowsableAPIRenderer",
     )
 
-# TODO: Redis
-CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-    "http://localhost:3000",
-]
-CORS_ALLOW_HEADERS = ["*"]
-CORS_URLS_REGEX = r"^/*$"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.pubsub.RedisPubSubChannelLayer",
+        "CONFIG": {
+            "hosts": [(os.environ.get("REDIS_HOST", "cache"), 6379)],
+        },
+    }
+}
 
 # Application definition
 ASGI_APPLICATION = "backend.asgi.application"
 INSTALLED_APPS = [
+    # Libraries
+    "channels",
+    "rest_framework",
+    "corsheaders",
+    "djoser",
+    "daphne",
+    # Contrib
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -73,24 +76,23 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Our logic
     "notifications",
-    # Libraries
-    "channels",
-    "rest_framework",
-    "djoser",
-    "corsheaders",
 ]
 STATIC_ROOT = "./static"
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    os.getenv("CORS_ORIGIN", "http://localhost:3000"),
+]
+CORS_ALLOW_CREDENTIALS = True
 ROOT_URLCONF = "backend.urls"
 
 TEMPLATES = [  # type: ignore
@@ -117,8 +119,12 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRES_NAME"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": os.getenv("POSTGRES_HOST"),
+        "PORT": "5432",
     }
 }
 
@@ -141,6 +147,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DJOSER = {
+    "LOGIN_FIELD": "email",
+    "USER_CREATE_PASSWORD_RETYPE": True,
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

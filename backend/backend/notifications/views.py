@@ -8,10 +8,12 @@ from rest_framework.permissions import (  # type: ignore
     IsAdminUser,
     IsAuthenticated,
 )
+from rest_framework.request import Request  # type: ignore
 from rest_framework.response import Response  # type: ignore
 from rest_framework.views import APIView  # type: ignore
 from rest_framework.viewsets import mixins  # type: ignore
 
+from notifications.consumers import invalidate_notifications
 from notifications.serializers import NotificationSerializer
 from notifications.services.notification import (
     get_notifications_stats,
@@ -29,6 +31,10 @@ class NotificationViewSet(
     """View sets for notifications"""
 
     serializer_class = NotificationSerializer
+
+    def perform_create(self, serializer: NotificationSerializer):
+        invalidate_notifications(serializer.validated_data.get("target"))  # type: ignore
+        return super().perform_create(serializer)  # type: ignore
 
     def get_queryset(self):  # type: ignore
         return queryset_for_user_notifications(self.request.user)

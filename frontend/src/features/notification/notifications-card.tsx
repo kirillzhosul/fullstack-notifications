@@ -30,9 +30,9 @@ export function NotificationsCard({
       </CardHeader>
       <CardContent>
         <div className="flex flex-col">
-          <p>Ошибок: {stats?.error}</p>
-          <p>Информационных: {stats?.info}</p>
-          <p>Предупреждений: {stats?.warning}</p>
+          <p>Ошибок: {stats?.ERROR || 0}</p>
+          <p>Информационных: {stats?.INFO || 0}</p>
+          <p>Предупреждений: {stats?.WARN || 0}</p>
         </div>
       </CardContent>
       <CardFooter>

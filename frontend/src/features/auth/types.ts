@@ -6,5 +6,5 @@ type SigninInputs = {
 type SignupInputs = {
   email: string;
   password: string;
-  passwordConfirmation: string;
+  re_password: string;
 };

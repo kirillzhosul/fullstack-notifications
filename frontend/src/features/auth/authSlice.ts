@@ -1,12 +1,13 @@
-import { AUTH_COOKIE } from "@/shared/constants/cookies";
 import { createSlice } from "@reduxjs/toolkit";
 import cookieCutter from "@boiseitguru/cookie-cutter";
+import { AUTH_COOKIE } from "@/shared/lib";
+import { USER } from "@/entities/types";
 
 const getInitialState = () => {
   if (typeof cookieCutter.get !== "undefined") {
     return {
-      user: cookieCutter.get("auth-user") || null,
-      token: cookieCutter.get(AUTH_COOKIE) || null,
+      user: JSON.parse(cookieCutter.get(AUTH_COOKIE.USER) ?? "null") || null,
+      token: cookieCutter.get(AUTH_COOKIE.ACCESS_TOKEN) || null,
     };
   }
 
@@ -15,6 +16,25 @@ const getInitialState = () => {
     token: null,
   };
 };
+
+const resetCookies = () => {
+  cookieCutter.set(AUTH_COOKIE.ACCESS_TOKEN, "", {
+    path: "/",
+  });
+  cookieCutter.set(AUTH_COOKIE.USER, "", {
+    path: "/",
+  });
+};
+
+const setCookies = (token: string, user: USER) => {
+  cookieCutter.set(AUTH_COOKIE.ACCESS_TOKEN, token, {
+    path: "/",
+  });
+  cookieCutter.set(AUTH_COOKIE.USER, JSON.stringify(user), {
+    path: "/",
+  });
+};
+
 const authSlice = createSlice({
   name: "auth",
   initialState: getInitialState(),
@@ -23,22 +43,12 @@ const authSlice = createSlice({
       const { user, token } = action.payload;
       state.user = user;
       state.token = token;
-      cookieCutter.set(AUTH_COOKIE, JSON.stringify(token), {
-        path: "/",
-      });
-      cookieCutter.set("auth-user", JSON.stringify(user), {
-        path: "/",
-      });
+      setCookies(token, user);
     },
     logOut: (state) => {
       state.user = null;
       state.token = null;
-      cookieCutter.set(AUTH_COOKIE, "", {
-        path: "/",
-      });
-      cookieCutter.set("auth-user", "", {
-        path: "/",
-      });
+      resetCookies();
     },
   },
 });

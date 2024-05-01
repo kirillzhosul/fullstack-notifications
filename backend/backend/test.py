@@ -50,6 +50,6 @@ def get_stats():
 
 
 # print(T)
-# print(get_me())
-# print(get_notifications())
+T = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE0NTU1MzM4LCJpYXQiOjE3MTQ1NTUwMzgsImp0aSI6ImI4YjllODZmNGMyMzRjM2I4ZmQ0ZDk2YWUwMjM4MGE1IiwidXNlcl9pZCI6NH0.EtDwHfTjRD7UyM6y6kbQlj1FEd3agAFGkQQ8qmLatrI"
 print(get_stats())
+print(get_me())

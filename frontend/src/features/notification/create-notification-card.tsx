@@ -1,16 +1,13 @@
 "use client";
 
-import { ROUTES } from "@/shared/constants/routes";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/shared/ui/card";
 
-import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CreateNotificationForm } from "./create-notification-form";
 import { CreateNotification } from "./types";

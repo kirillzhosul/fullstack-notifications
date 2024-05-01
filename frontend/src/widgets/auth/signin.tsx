@@ -1,27 +1,29 @@
 import { selectCurrentToken, setCredentials } from "@/features/auth/authSlice";
 import SigninCard from "@/features/auth/signin-card";
-import { ROUTES } from "@/shared/constants/routes";
-import { useSigninMutation } from "@/shared/redux/api";
+import { ROUTES } from "@/shared/lib/routes";
+import { useGetUserQuery, useSigninMutation } from "@/shared/redux/api";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 
 export default function SigninWidget() {
   const router = useRouter();
   const [signin, { isLoading, isError, error }] = useSigninMutation();
+
   const dispatch = useDispatch();
 
   const onSubmit = (data: SigninInputs) => {
-    const payload = { ...data, username: data.email };
-    signin(payload)
+    signin({ ...data, username: data.email })
       .unwrap()
       .then((r: any) => {
         console.log("ok auth", r.access);
+        data.password = "";
         dispatch(
           setCredentials({
-            user: payload,
+            user: data,
             token: r.access,
           }),
         );
+
         router.push(ROUTES.DASHBOARD);
       })
       .catch(() => {

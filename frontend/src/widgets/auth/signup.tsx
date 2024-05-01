@@ -1,7 +1,7 @@
 "use client";
 
 import SignupCard from "@/features/auth/signup-card";
-import { ROUTES } from "@/shared/constants/routes";
+import { ROUTES } from "@/shared/lib/routes";
 import { useSignupMutation } from "@/shared/redux/api";
 import { useRouter } from "next/navigation";
 
@@ -13,7 +13,7 @@ export default function SignupWidget() {
     signup({ email: data.email, password: data.password, username: data.email })
       .unwrap()
       .then(() => {
-        router.push(ROUTES.DASHBOARD);
+        router.push(ROUTES.SIGNIN);
       })
       .catch(() => {
         console.log("invalid auth");

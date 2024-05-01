@@ -1,4 +1,4 @@
-import { ROUTES } from "@/shared/constants/routes";
+import { ROUTES } from "@/shared/lib/routes";
 import { Button } from "@/shared/ui/button";
 import Link from "next/link";
 
@@ -9,7 +9,7 @@ export default function Home() {
       <span>Автор: Кирилл Жосул</span>
       <span>Стэк: Next.js + Django</span>
 
-      <Button className="mt-10" variant="default">
+      <Button className="mt-10" variant="default" asChild>
         <Link href={ROUTES.DASHBOARD}>Панель управления</Link>
       </Button>
       <Button className="mt-2" variant="ghost">

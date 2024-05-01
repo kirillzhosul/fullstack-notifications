@@ -1,4 +1,4 @@
-import { ROUTES } from "@/shared/constants/routes";
+import { ROUTES } from "@/shared/lib/routes";
 import { Button } from "@/shared/ui/button";
 import {
   Card,
@@ -32,9 +32,6 @@ export function ProfileCard({ user }: { user: USER }) {
         </Button>
         <Button variant="link">
           <Link href={ROUTES.HOME}>На главную</Link>
-        </Button>
-        <Button variant="link">
-          <Link href={ROUTES.DJANGO_ADMIN}>Django Admin</Link>
         </Button>
       </CardFooter>
     </Card>

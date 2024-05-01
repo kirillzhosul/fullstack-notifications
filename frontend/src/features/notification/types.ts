@@ -1,10 +1,10 @@
 export type NotificationStats = {
-  info: number;
-  warning: number;
-  error: number;
+  INFO: number;
+  WARN: number;
+  ERROR: number;
 };
 
-export type NOTIFICATION_TYPE = "info" | "warning" | "error";
+export type NOTIFICATION_TYPE = "info" | "warn" | "error";
 
 export type CreateNotification = {
   type: NOTIFICATION_TYPE;

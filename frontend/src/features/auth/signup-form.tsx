@@ -73,7 +73,7 @@ export default function SignupForm({
         {errors.password && <FormMessage>Введите пароль!</FormMessage>}
         <FormField
           control={form.control}
-          name="passwordConfirmation"
+          name="re_password"
           defaultValue=""
           rules={{
             required: true,
@@ -94,7 +94,7 @@ export default function SignupForm({
           }}
         ></FormField>
 
-        {errors.passwordConfirmation && (
+        {errors.re_password && (
           <FormMessage>Пароли должны совпадать</FormMessage>
         )}
         {isError && (
