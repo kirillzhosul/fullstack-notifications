@@ -6,8 +6,7 @@ services:
     container_name: fullstack-frontend
     restart: unless-stopped
     env_file:
-      - .env.example
-      - .env.local
+      - .env
     build: .
     ports:
       - "${COMPOSE_EXPOSED_PORT}:3000"

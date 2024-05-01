@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/ui/utils";
+import { Provider } from "react-redux";
+import { store } from "@/shared/redux/store";
+import { Providers } from "@/shared/redux/provider";
 
 const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
-  title: "Notifications",
-  description: "Fullstack application",
+  title: "Уведомления",
+  description: "Fullstack уведомления",
 };
 
 export default function RootLayout({
@@ -23,7 +26,7 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
