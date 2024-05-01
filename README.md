@@ -22,3 +22,6 @@ TODO:
 - Environments cleanup && fix
 - Fix period select
 - Inject more redux
+
+![](/docs/dashboard.png)
+![](/docs/auth.png)
