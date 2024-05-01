@@ -9,9 +9,6 @@ export default function Home() {
       <span>Автор: Кирилл Жосул</span>
       <span>Стэк: Next.js + Django</span>
 
-      <p className="mt-10">Данные администратора:</p>
-      <p>[admin@admin.com]:[admin]</p>
-
       <Button className="mt-10" variant="default">
         <Link href={ROUTES.DASHBOARD}>Панель управления</Link>
       </Button>
