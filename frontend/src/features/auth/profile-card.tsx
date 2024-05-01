@@ -22,7 +22,7 @@ export function ProfileCard({ user }: { user: USER }) {
 
       <CardContent>
         <div>Почта: </div>
-        <Input disabled={true} value={user.email || user.username}></Input>
+        <Input disabled={true} value={user?.email || user?.username}></Input>
         <div>Администратор? </div>
         <Input disabled={true} value={"Да"}></Input>
       </CardContent>

@@ -3,9 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import cookieCutter from "@boiseitguru/cookie-cutter";
 
 const getInitialState = () => {
+  if (typeof cookieCutter.get !== "undefined") {
+    return {
+      user: cookieCutter.get("auth-user") || null,
+      token: cookieCutter.get(AUTH_COOKIE) || null,
+    };
+  }
+
   return {
-    user: cookieCutter.get("auth-user") || null,
-    token: cookieCutter.get(AUTH_COOKIE) || null,
+    user: null,
+    token: null,
   };
 };
 const authSlice = createSlice({
