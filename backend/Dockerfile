@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /srv
 
 # Install requirements.
-COPY pyproject.tom /srv/
+COPY pyproject.toml /srv/
 RUN pip install --upgrade poetry
 RUN poetry install
 
