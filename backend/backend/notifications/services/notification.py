@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractBaseUser, AnonymousUser
 from django.db.models import Count, Q
-
 from notifications.models import Notification
 
 type U = AbstractBaseUser | AnonymousUser

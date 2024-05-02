@@ -8,6 +8,12 @@ NOTIFICATION_TYPES = [
 
 
 class Notification(models.Model):
+    """
+    Notification model
+    TODO: time created is not taken
+    TODO: `type` is actually `level` (cuz there is too small amount of types and it is actually level)
+    """
+
     type_ = models.CharField(
         max_length=5,
         name="type",

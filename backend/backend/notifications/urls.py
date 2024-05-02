@@ -31,8 +31,5 @@ urlpatterns = [  # type: ignore
 
 
 websocket_urlpatterns = [
-    path(
-        "",
-        consumers.NotificationReactiveConsumer.as_asgi(),  # type: ignore
-    ),
+    path("", consumers.InvalidationReactiveConsumer.as_asgi()),  # type: ignore
 ]
