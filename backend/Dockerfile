@@ -19,4 +19,4 @@ COPY . /srv/
 WORKDIR /srv/backend
 
 # Run project after building.
-CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

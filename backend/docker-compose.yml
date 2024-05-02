@@ -42,7 +42,7 @@ services:
     volumes:
       - ./backend:/srv/api
     ports:
-      - "${COMPOSE_EXPOSED_PORT}:80"
+      - "${COMPOSE_EXPOSED_PORT}:8000"
     depends_on:
       - database
       - cache
