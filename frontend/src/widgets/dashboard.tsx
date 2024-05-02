@@ -17,8 +17,8 @@ import { useToast } from "@/shared/ui/use-toast";
 import { useSelector } from "react-redux";
 import useWebSocket from "react-use-websocket";
 
-const SOCKET_URL = `ws://127.0.0.1`;
 import { useDispatch } from "react-redux";
+import { API_WS_URL } from "@/shared/lib";
 
 export function DashboardWidget() {
   const user = useSelector(selectCurrentUser);
@@ -69,7 +69,7 @@ export function DashboardWidget() {
     }
   };
 
-  const { sendMessage, lastMessage, readyState } = useWebSocket(SOCKET_URL, {
+  const { sendMessage, lastMessage, readyState } = useWebSocket(API_WS_URL, {
     //eventSourceOptions: {
     //  withCredentials: true,
     //},

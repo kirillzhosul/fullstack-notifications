@@ -1,26 +1,36 @@
-# Backend
+# Backend service
 
-Реализация Backend на Django
+Backend implementation in Django
 
-### Запуск
+### Stack
+
+Django + DRF + Django channels + daphne + PostgreSQL + Redis
+
+### Launch
 
 #### Docker
 
 ```
-docker-compose up
+docker-compose up --build
 ```
 
 #### Python
 
-```
+```shell
+# Will run daphne under the hood
 python manage.py runserver
 ```
 
-### Генерация схемы
+### Generate API schema
 
 ```
 python manage.py generateschema > schema.yml
 ```
 
-Стэк:
-`Django` + `DRF`
+### Run tests && migrate
+
+```
+docker exec -it /bin/sh [container_name]
+python manage.py test
+python manage.py migrate
+```

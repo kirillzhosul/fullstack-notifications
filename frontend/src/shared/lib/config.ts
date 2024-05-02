@@ -10,4 +10,6 @@ export const AUTH_COOKIE = {
 export const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000/";
 
+export const API_WS_URL =
+  process.env.NEXT_PUBLIC_API_WS_URL || "ws://127.0.0.1";
 export const PRODUCTION_MODE = process.env.NODE_ENV === "production";
